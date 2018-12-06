@@ -21,12 +21,20 @@ variable "tenant_id" {
   description = "Enter tenantId"
 }
 
+variable "vm_prefix" {
+  description = "Enter VM prefix"
+}
+
 variable "vm_username" {
   description = "Enter admin username to SSH into Linux VM"
 }
 
 variable "vm_password" {
   description = "Enter admin password to SSH into VM"
+}
+
+variable "vm_jupyter_pwd" {
+  description = "Enter password for Jupyter"
 }
 
 variable "location" {
