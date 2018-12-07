@@ -8,6 +8,15 @@ echo User = $USER
 
 NOCORES=`nproc`
 echo Using $NOCORES cores
+
+cd /tmp
+curl -O https://repo.continuum.io/archive/Anaconda3-4.4.0-Linux-x86_64.sh
+bash Anaconda3-4.4.0-Linux-x86_64.sh -b
+rm Anaconda3-4.4.0-Linux-x86_64.sh
+export PATH=${PATH}:/home/${USER}/anaconda3/bin
+echo 'export PATH=${PATH}:/home/${USER}/anaconda3/bin' >> /home/${USER}/.bashrc
+source /home/${USER}/.bashrc
+
 mkdir ~/devel
 cd ~/devel
 git clone https://github.com/CCPPETMR/CCPPETMR_VM.git
@@ -25,15 +34,7 @@ sudo mkdir -p /srv/jupyter
 sudo mv launch.sh /srv/jupyter/launch.sh
 sudo chmod 755 /srv/jupyter/launch.sh
 
-cd /tmp
-curl -O https://repo.continuum.io/archive/Anaconda3-4.4.0-Linux-x86_64.sh
-bash Anaconda3-4.4.0-Linux-x86_64.sh -b
-rm Anaconda3-4.4.0-Linux-x86_64.sh
-export PATH=${PATH}:/home/${USER}/anaconda3/bin
-echo 'export PATH=${PATH}:/home/${USER}/anaconda3/bin' >> /home/${USER}/.bashrc
-source /home/${USER}/.bashrc
 mkdir /home/${USER}/.jupyter
-#conda install nb_conda -y
 jupyter-notebook --generate-config --allow-root
 cd /home/${USER}/.jupyter
 sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
