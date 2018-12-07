@@ -199,8 +199,8 @@ resource "azurerm_virtual_machine" "mytfvm" {
 
         inline = [
             "sudo bash ~/install_prerequisites.sh",
-            "bash ~/provision.sh"
-            "sudo chown -R ${var.vm_username}:${var.vm_username} /home/${var.vm_username}"
+            "bash ~/provision.sh",
+            "sudo chown -R ${var.vm_username}:${var.vm_username} /home/${var.vm_username}",
             "sudo systemctl enable jupyter.service"
         ]
     }

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 sudo apt-get update
-sudo apt-get install -y build-essential libinsighttoolkit4-dev
+sudo apt-get install -y build-essential libinsighttoolkit4-dev swig
 sudo apt-get install -y --no-install-recommends python-dev python-scipy python-numpy
 
 export CMAKE_VERSION=3.11

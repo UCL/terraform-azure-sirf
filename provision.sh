@@ -12,18 +12,18 @@ mkdir ~/devel
 cd ~/devel
 git clone https://github.com/CCPPETMR/CCPPETMR_VM.git
 cd CCPPETMR_VM
-bash scripts/INSTALL_prerequisites_with_apt-get.sh
+sudo bash scripts/INSTALL_prerequisites_with_apt-get.sh
 bash scripts/UPDATE.sh -j `nproc`
 bash scripts/update_VM.sh -j `nproc`
 
 cd ~
 sed -i -- "s/%%TARGETUSER%%/${USER}/g" jupyter.service
-mv jupyter.service /etc/systemd/system/jupyter.service
-chmod 755 /etc/systemd/system/jupyter.service
+sudo mv jupyter.service /etc/systemd/system/jupyter.service
+sudo chmod 755 /etc/systemd/system/jupyter.service
 
-mkdir -p /srv/jupyter
-mv launch.sh /srv/jupyter/launch.sh
-chmod 755 /srv/jupyter/launch.sh
+sudo mkdir -p /srv/jupyter
+sudo mv launch.sh /srv/jupyter/launch.sh
+sudo chmod 755 /srv/jupyter/launch.sh
 
 cd /tmp
 curl -O https://repo.continuum.io/archive/Anaconda3-4.4.0-Linux-x86_64.sh
