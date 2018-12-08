@@ -1,15 +1,16 @@
 #!/bin/bash
 
 sudo apt-get update
-sudo apt-get install -y build-essential libinsighttoolkit4-dev swig
-sudo apt-get install -y --no-install-recommends python-dev python-scipy python-numpy
 
-export CMAKE_VERSION=3.11
-export BUILD=0
-cd /tmp
-wget https://cmake.org/files/v$CMAKE_VERSION/cmake-$CMAKE_VERSION.$BUILD.tar.gz
-tar -xzvf cmake-$CMAKE_VERSION.$BUILD.tar.gz
-cd cmake-$CMAKE_VERSION.$BUILD/
-./bootstrap
-make -j`nproc`
-sudo make install
+sudo apt-get install -y --no-install-recommends build-essential python-dev python-pip
+#python3 -m pip install --upgrade pip
+#python3 -m pip install setuptools
+#python3 -m pip install jupyter
+#python3 -m pip install matplotlib numpy scipy
+
+pip install --upgrade pip
+python2 -m pip install setuptools
+python2 -m pip install ipykernel jupyter
+python2 -m pip install matplotlib numpy scipy
+
+sudo apt-get install -y swig expect

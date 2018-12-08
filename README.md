@@ -1,7 +1,6 @@
-# terraform-azure-stir
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1450922.svg)](https://doi.org/10.5281/zenodo.1450922)
+# terraform-azure-sirf
 
-This repo demonstrates how to build and install [STIR](https://github.com/UCL/STIR) on an [Azure](https://azure.microsoft.com) VM using [Terraform](https://www.terraform.io/). The VM is described in Terraform files (`.tf`). Terraform deploys a VM in the cloud and then copies and executes a bash script to perform the actual building of STIR. 
+This repo demonstrates how to build and install [SIRF](https://github.com/CCPPETMR/SIRF) on an [Azure](https://azure.microsoft.com) VM using [Terraform](https://www.terraform.io/). The VM is described in Terraform files (`.tf`). Terraform deploys a VM in the cloud and then copies and executes a bash script to perform the actual building of SIRF. 
 
 An Azure account is required for deployment.
 
@@ -45,14 +44,22 @@ terraform apply -var-file var_values.tfvars
 - If this succeeded, a virtual machine will be running on Azure.
 - Find the public IP address of the machine:
 ```shell
-az vm show --resource-group stirGroup --name stirVM -d --query [publicIps] --o tsv
+az vm show --resource-group <RESGROUP> --name <VMNAME> -d --query [publicIps] --o tsv
 ```
+where `RESGROUP` is the value set for `vm_prefix` followed by `Group` (default: `sirfGroup`) and `VMNAME` is the `vm_prefix` value followed by `VM` (default: `sirfVM`).
 - Make a note of the IP address.
 - To access the machine via ssh:
 ```shell
 ssh USERNAME@PUBLICIP
 ```
-where `USERNAME` is the value set for `vm_username` (default: `stiruser`) and `PUBLICIP` is the public IP address found with the previous command.
+where `USERNAME` is the value set for `vm_username` (default: `sirfuser`) and `PUBLICIP` is the public IP address found with the previous command. The password for access to the virtual machine is the value of `vm_password` (default: `sirf%1`).
+
+## Jupyter
+Once built, a Jupyter notebook will be running. The URL can be accessed from a web browser:
+```
+https://<PUBLICIP>:<JUPPORT>
+```
+where `PUBLICIP` is the IP address found previously and `JUPPORT` is the Jupyter server port set by `vm_jupyter_port` (default: `9999`). The password for access to the notebook is controlled by the variable `vm_jupyter_pwd` (default: `virtual%1`).
 
 ## Removing the infrastructure
 ```shell

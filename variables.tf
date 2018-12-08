@@ -37,6 +37,10 @@ variable "vm_jupyter_pwd" {
   description = "Enter password for Jupyter"
 }
 
+variable "vm_jupyter_port" {
+  description = "Enter port number for Jupyter"
+}
+
 variable "location" {
   description = "The default Azure region for the resource provisioning"
 }

@@ -65,7 +65,7 @@ resource "azurerm_network_security_group" "mytfsg" {
         access                     = "Allow"
         protocol                   = "Tcp"
         source_port_range          = "*"
-        destination_port_range     = "9999"
+        destination_port_range     = "${var.vm_jupyter_port}"
         source_address_prefix      = "*"
         destination_address_prefix = "*"
     }
@@ -187,6 +187,15 @@ resource "azurerm_virtual_machine" "mytfvm" {
             user     = "${var.vm_username}"
             password = "${var.vm_password}"
         }
+        source      = "jupyter_set_pwd.sh"
+        destination = "/home/${var.vm_username}/jupyter_set_pwd.sh"
+    }
+
+    provisioner "file" {
+        connection {
+            user     = "${var.vm_username}"
+            password = "${var.vm_password}"
+        }
         source      = "jupyter.service"
         destination = "/home/${var.vm_username}/jupyter.service"
     }
@@ -198,6 +207,8 @@ resource "azurerm_virtual_machine" "mytfvm" {
         }
 
         inline = [
+            "export JUPPWD=${var.vm_jupyter_pwd}",
+            "export JUPPORT=${var.vm_jupyter_port}",
             "sudo bash ~/install_prerequisites.sh",
             "bash ~/provision.sh",
             "sudo chown -R ${var.vm_username}:${var.vm_username} /home/${var.vm_username}",

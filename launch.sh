@@ -1,4 +1,4 @@
 #!/bin/bash
 
-source /home/sirfuser/.sirfrc
-exec /usr/local/bin/jupyter-notebook --config=/home/sirfuser/.jupyter/jupyter_notebook_config.py
+source /home/%%TARGETUSER%%/.sirfrc
+exec jupyter-notebook --config=/home/%%TARGETUSER%%/.jupyter/jupyter_notebook_config.py
