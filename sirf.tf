@@ -213,6 +213,7 @@ resource "azurerm_virtual_machine" "mytfvm" {
             "bash ~/provision.sh",
             "sudo chown -R ${var.vm_username}:${var.vm_username} /home/${var.vm_username}",
             "sudo systemctl enable jupyter.service"
+            "rm ~/install_prerequisites.sh ~/provision.sh ~/jupyter_set_pwd.sh"
         ]
     }
 
