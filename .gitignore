@@ -2,3 +2,4 @@ SetUpAzureEnv.sh
 terraform.tfstate*
 .terraform/
 var_values.tfvars
+*.lock.info
