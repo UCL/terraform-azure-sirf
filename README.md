@@ -1,8 +1,6 @@
 # terraform-azure-sirf
 
-
-[![DOI](https://zenodo.org/badge/160598746.svg)](https://zenodo.org/badge/latestdoi/160598746)
-
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2094079.svg)](https://doi.org/10.5281/zenodo.2094079)
 
 This repo demonstrates how to build and install [SIRF](https://github.com/CCPPETMR/SIRF) on an [Azure](https://azure.microsoft.com) VM using [Terraform](https://www.terraform.io/). The VM is described in Terraform files (`.tf`). Terraform deploys a VM in the cloud and then copies and executes a bash script to perform the actual building of SIRF. 
 
