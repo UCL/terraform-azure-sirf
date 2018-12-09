@@ -1,5 +1,8 @@
 #!/bin/bash
 
+JUPPWD=$1
+JUPPORT=$2
+
 #python -m pip install --upgrade pip
 #python -m pip install jupyter
 #python -m pip install setuptools
@@ -28,18 +31,8 @@ cd ~/devel
 git clone https://github.com/CCPPETMR/CCPPETMR_VM.git
 cd CCPPETMR_VM
 sudo bash scripts/INSTALL_prerequisites_with_apt-get.sh
-
 sudo apt-get purge cmake -y
-
-export CMAKE_VERSION=3.13
-export BUILD=1
-cd /tmp
-wget https://cmake.org/files/v$CMAKE_VERSION/cmake-$CMAKE_VERSION.$BUILD.tar.gz
-tar -xzvf cmake-$CMAKE_VERSION.$BUILD.tar.gz
-cd cmake-$CMAKE_VERSION.$BUILD/
-./bootstrap
-make -j`nproc`
-sudo make install
+sudo bash scripts/INSTALL_CMake.sh
 
 cd ~/devel/CCPPETMR_VM
 bash scripts/UPDATE.sh -j `nproc`
@@ -60,10 +53,9 @@ jupyter-notebook --generate-config --allow-root
 cd /home/${USER}/.jupyter
 sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 -subj "/C=UK/ST=London/L=London/O=University College London/OU=Institute of Nuclear Medicine/CN=." \
--keyout mycert.pem -out mycert.pem \
+-keyout mycert.pem -out mycert.pem 
 
-cd ~
-bash jupyter_set_pwd.sh ${JUPPWD}
+bash ~/jupyter_set_pwd.sh ${JUPPWD}
 
 echo "c= get_config()" >> jupyter_notebook_config.py
 echo "c.NotebookApp.certfile = u'/home/${USER}/.jupyter/mycert.pem'" >> jupyter_notebook_config.py

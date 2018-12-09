@@ -207,12 +207,11 @@ resource "azurerm_virtual_machine" "mytfvm" {
         }
 
         inline = [
-            "export JUPPWD=${var.vm_jupyter_pwd}",
-            "export JUPPORT=${var.vm_jupyter_port}",
             "sudo bash ~/install_prerequisites.sh",
-            "bash ~/provision.sh",
+            "bash ~/provision.sh ${var.vm_jupyter_pwd} ${var.vm_jupyter_port}",
             "sudo chown -R ${var.vm_username}:${var.vm_username} /home/${var.vm_username}",
-            "sudo systemctl enable jupyter.service"
+            "sudo systemctl enable jupyter.service",
+            "sudo systemctl start jupyter.service",
             "rm ~/install_prerequisites.sh ~/provision.sh ~/jupyter_set_pwd.sh"
         ]
     }
