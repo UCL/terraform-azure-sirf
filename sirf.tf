@@ -70,6 +70,18 @@ resource "azurerm_network_security_group" "mytfsg" {
         destination_address_prefix = "*"
     }
 
+    security_rule {
+        name                       = "RDP"
+        priority                   = 1003
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "3389"
+        source_address_prefix      = "*"
+        destination_address_prefix = "*"
+    }
+
     tags {
         environment = "${var.vm_prefix} env"
     }
@@ -200,6 +212,15 @@ resource "azurerm_virtual_machine" "mytfvm" {
         destination = "/home/${var.vm_username}/jupyter.service"
     }
 
+    provisioner "file" {
+        connection {
+            user     = "${var.vm_username}"
+            password = "${var.vm_password}"
+        }
+        source      = "install_rdp.sh"
+        destination = "/home/${var.vm_username}/install_rdp.sh"
+    }
+
     provisioner "remote-exec" {
         connection {
             user     = "${var.vm_username}"
@@ -209,10 +230,11 @@ resource "azurerm_virtual_machine" "mytfvm" {
         inline = [
             "sudo bash ~/install_prerequisites.sh",
             "bash ~/provision.sh ${var.vm_jupyter_pwd} ${var.vm_jupyter_port}",
-            "sudo chown -R ${var.vm_username}:${var.vm_username} /home/${var.vm_username}",
             "sudo systemctl enable jupyter.service",
             "sudo systemctl start jupyter.service",
-            "rm ~/install_prerequisites.sh ~/provision.sh ~/jupyter_set_pwd.sh"
+            "sudo bash ~/install_rdp.sh",
+            "sudo chown -R ${var.vm_username}:${var.vm_username} /home/${var.vm_username}",
+            "rm ~/install_prerequisites.sh ~/provision.sh ~/jupyter_set_pwd.sh ~/install_rdp.sh"
         ]
     }
 

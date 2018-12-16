@@ -3,34 +3,18 @@
 JUPPWD=$1
 JUPPORT=$2
 
-#python -m pip install --upgrade pip
-#python -m pip install jupyter
-#python -m pip install setuptools
-
 echo User = $USER
 
 NOCORES=`nproc`
 echo Using $NOCORES cores
-
-#cd /tmp
-#curl -O https://repo.continuum.io/archive/Anaconda3-4.4.0-Linux-x86_64.sh
-#bash Anaconda3-4.4.0-Linux-x86_64.sh -b
-#rm Anaconda3-4.4.0-Linux-x86_64.sh
-#export PATH=${PATH}:/home/${USER}/anaconda3/bin
-#echo 'export PATH=${PATH}:/home/${USER}/anaconda3/bin' >> /home/${USER}/.bashrc
-#source /home/${USER}/.bashrc
-
-##export PYTHON_EXECUTABLE=/home/${USER}/anaconda3/bin/python3
-
-#conda create -n py36 python=3.6 -y
-#source activate py36
-#conda install gcc -y
 
 mkdir ~/devel
 cd ~/devel
 git clone https://github.com/CCPPETMR/CCPPETMR_VM.git
 cd CCPPETMR_VM
 sudo bash scripts/INSTALL_prerequisites_with_apt-get.sh
+sudo bash scripts/INSTALL_python_packages.sh
+sudo pip install -U matplotlib
 sudo apt-get purge cmake -y
 sudo bash scripts/INSTALL_CMake.sh
 
