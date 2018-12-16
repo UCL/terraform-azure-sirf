@@ -63,6 +63,9 @@ https://<PUBLICIP>:<JUPPORT>
 ```
 where `PUBLICIP` is the IP address found previously and `JUPPORT` is the Jupyter server port set by `vm_jupyter_port` (default: `9999`). The password for access to the notebook is controlled by the variable `vm_jupyter_pwd` (default: `virtual%1`).
 
+## Remote desktop
+A remote desktop to the VM is available. See the [instructions](https://github.com/UCL/terraform-azure-sirf/wiki/Remote-desktop) on the wiki.
+
 ## Removing the infrastructure
 ```shell
 terraform destroy -var-file var_values.tfvars
